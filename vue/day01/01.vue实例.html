@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script> -->
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <!-- 控制的元素区域称为v -->
+    <div id = "app">
+        <p>{{ msg }}</p>
+    </div>
+    <script>
+        //创建一个vue的实例
+        // 创建出来的对象就是vm
+        let vm = new Vue({
+            //当前vue的vue实例控制的位置
+            el:'#app',
+            //存放的是el中需要用到的数据
+            // data里面存放的数据就是m
+            data:{
+                msg:'hello world'
+            }
+        })  
+    </script>
+</body>
+
+</html>
