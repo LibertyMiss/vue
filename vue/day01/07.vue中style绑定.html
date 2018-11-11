@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ent</title>
+    <script src="lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 :style = "{color:'red','foot-weight':700}">{{ msg }}</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: { 
+                msg:'这是一个h1'
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

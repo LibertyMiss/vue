@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p v-for="(item,i) in user">
+            {{item}}--{{i}}
+            <span v-for="(value,key,i) in item">{{key}}--{{value}}--{{i}}</span>
+        </p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                user:[
+                    {
+                        'name':'ck',
+                        'age':45,
+                    },
+                    {
+                        'name':'王超',
+                        'age':60
+                    },
+                    {
+                        'name':'zc',
+                        'age':80,
+                    }
+                ]
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>
