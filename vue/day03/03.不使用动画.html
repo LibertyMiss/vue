@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateX(150px);
+        }
+
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 3s ease;
+        }
+
+        /* .v-enter-to,
+        .v-leave{
+            opacity: 1;
+            transform: translateX(0px);
+        } */
+
+        .my-enter,
+        .my-leave-to{
+            opacity: 0;
+            transform: translateY(150px);
+        }
+
+        .my-enter-active,
+        .my-leave-active{
+             transition: all 3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="按钮" @click='flag=!flag'>
+        <transition>
+            <h3 v-if='flag'>这是h3</h3>
+        </transition>
+        <hr>
+        <input type="button" value="按钮2" @click='flag2=!flag2'>
+        <transition name='my'>
+            <h4 v-if='flag2'>这是h4</h4><br>
+        </transition>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+                flag2:true,
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>
