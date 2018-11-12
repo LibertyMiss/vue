@@ -1,0 +1,22 @@
+一。使用vue-resource.js 包
+    先导入vue.js
+    再导入vue-resource.js 包
+
+    导完之后:可以在Vue实例中使用$http属性发送ajax请求
+    因为vue-resource.js被挂在vm实例中
+
+    1.发送get请求
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                getInfo(){
+                    this.$http.get('http://www.lovegf.cn:8899/api/getlunbo').then(result => {
+                        如需要获取数据,则用result.body获取
+                        console.log(result.body)
+                    })
+                }
+            }
+
+        })
+    2.发送post请求
