@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+</head>
+
+<body>
+    <div id="app">
+        <mycom @func='getStartList'></mycom>
+        <ul class="list-group">
+            <li class="list-group-item" v-for='item in list' :key='item.id'>
+                <span class="badge">受评人:{{item.name}}</span>
+                {{item.name}}{{item.detail}}
+            </li>
+        </ul>
+    </div>
+    <template id='tel'>
+        <div class='container-fluid'>
+            <div class="form-group">
+                <label>评论人:</label>
+                <input type="text" class="form-control" v-model='name'>
+            </div>
+
+            <div class="form-group">
+                <label>评论内容:</label>
+                <textarea class="form-control" v-model='detail'></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="发表评论" class="btn btn-primary" @click='getList'>
+            </div>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                        id: new Date(),
+                        name: '王超',
+                        detail: '智障'
+                    },
+                    {
+                        id: new Date(),
+                        name: '陈康',
+                        detail: '傻逼',
+                    },
+                    {
+                        id: new Date(),
+                        name: '朱程',
+                        detail: '优秀',
+                    }
+                ]
+            },
+            methods: {
+                //定义获取数据方法
+                getStartList() {
+                    var list = JSON.parse(localStorage.getItem('lis') || '[]');
+                    this.list = list;
+                }
+            },
+            created() {
+                this.getStartList()
+            },
+            components: {
+                mycom: {
+                    template: '#tel',
+                    // data必须是函数,返回一个对象,如果直接写对象的话,根据复杂数据类型引用,会同步到所有的子组件中
+                    data() {
+                        return {
+                            name: '',
+                            detail: '',
+                        }
+                    },
+                    methods: {
+                        getList() {
+                            //获取添加的数据
+                            var d = {
+                                id: new Date(),
+                                name: this.name,
+                                detail: this.detail
+                            }
+                            //获取数据
+                            var list = JSON.parse(localStorage.getItem('lis') || '[]');
+                            console.log(list)
+                            //加入数据
+                            list.unshift(d)
+                            //重新设置localStorage中的数据
+                            localStorage.setItem('lis', JSON.stringify(list));
+                            this.name = this.detail = '';
+                            this.$emit('func')
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

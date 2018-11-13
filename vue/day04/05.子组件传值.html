@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+</head>
+
+<body>
+    <div id="app">
+        <mycom @func='flist'></mycom>
+
+        <ul class="list-group">
+            <li class="list-group-item" v-for='item in list' :key='item.id'>
+                <span class="badge">评论人： {{ item.name }}</span>
+                {{item.name }} {{ item.detail }}
+            </li>
+        </ul>
+    </div>
+    <template id='tel'>
+        <div class='container-fluid'>
+            <div class="form-group">
+                <label>评论人:</label>
+                <input type="text" class="form-control" v-model='name'>
+            </div>
+
+            <div class="form-group">
+                <label>评论内容:</label>
+                <textarea class="form-control" v-model='detail'></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="发表评论" class="btn btn-primary" @click='add'>
+            </div>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                        id: new Date(),
+                        name: '王超',
+                        detail: '智障',
+                    },
+                    {
+                        id: new Date(),
+                        name: '陈康',
+                        detail: '傻逼'
+                    },
+                    {
+                        id: new Date(),
+                        name: '朱程',
+                        detail: '优秀'
+                    }
+                ],
+            },
+            methods: {
+                flist() {
+                    // 获取localStorage中的数据
+                    var list = JSON.parse(localStorage.getItem('lis')) || '[]';
+                    console.log(list);
+
+                    this.list = list;
+                }
+            },
+            created() {
+                this.flist();
+                console.log(123);
+
+            },
+            components: {
+                mycom: {
+                    template: '#tel',
+                    data() {
+                        return {
+                            name: '',
+                            detail: '',
+                        }
+                    },
+                    methods: {
+                        add() {
+                            //新获取的数据
+                            var d = {
+                                id: new Date(),
+                                name: this.name,
+                                detail: this.detail,
+                            }
+
+                            //获取所有的数据
+                            var list = JSON.parse(localStorage.getItem('lis') || '[]');
+                            list.unshift(d);
+                            localStorage.setItem('lis', JSON.stringify(list));
+                            this.name = this.detail = '';
+                            this.$emit('func')
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

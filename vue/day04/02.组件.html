@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <mycom></mycom>
+
+
+    </div>
+    <template id="id">
+        <ul>
+            <li>王超</li>
+            <li>陈康</li>
+            <li>朱程</li>
+        </ul>
+    </template>
+    <template id="id2">
+        <ul>
+            <li>王超傻逼私有的</li>
+        </ul>
+    </template>
+    <script>
+        // var com1 = Vue.extend({
+        //     template: '<h3>组件</h3>'
+        // })
+        // Vue.component('mycom', com1)
+
+        // Vue.component('mycom', Vue.extend({
+        //     template: '<h3>组件</h3>'
+        // }))
+        // Vue.component('mycom', {
+        //     template: '<h3>组件</h3>'
+        // })
+        // Vue.component('mycom', '#id')
+        Vue.component('mycom', {
+            template: '<h1>傻逼王超 ---{{msg}}</h1>',
+            data: function () {
+                return {
+                    msg: '是个智障'
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            directives: {},
+            components: {
+                login: {
+                    template: '#id2'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

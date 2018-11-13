@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <mycom v-bind:sql="msg"></mycom>
+    </div>
+
+    <script>
+        // Vue.component('mycom', {
+        //     template: '<h3>王超--- {{ msg }}</h3>',
+        //     prop: ['sql'],
+        // })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '可丑了',
+            },
+            methods: {},
+            components: {
+                mycom: {
+                    template: '<h3 @click="data">王超--- {{ sql }}</h3>',
+                    props: ['sql'],
+                    methods:{
+                        data(){
+                           this.sql = '越来越丑'; 
+                        }
+                    }
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>
