@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to='/login?id=3&name=zs'>登陆</router-link>
+        <router-link to='/register/5'>注册</router-link>
+    </div>
+    <script>
+        var login = {
+            data() {
+                return {
+
+                }
+            },
+            created: function () {
+                console.log(this.$route.query.id)
+            },
+            template: '<h1>登陆组件---{{$route.query.id}}--{{$route.query.name}}</h1>'
+        }
+        var register = {
+            data() {
+                return {
+
+                }
+            },
+            created: function () {
+                console.log(this.$route.params.id)
+            },
+            template: '<h1>注册组件--{{$route.params.id}}--{{$route.params.name}}<</h1>'
+        }
+
+        var routerObj = new VueRouter({
+            // routers表示路由的匹配规则
+            routes: [
+                // path 监听路由地址
+                // component 表示如果前一个参数匹配到的 path
+                // 展示属性对应的组件
+                {
+                    path: '/login',
+                    component: login
+                },
+                {
+                    path: '/register/:id',
+                    component: register
+                }
+            ],
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            router: routerObj,
+        })
+    </script>
+</body>
+
+</html>
