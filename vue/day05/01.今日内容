@@ -1,0 +1,155 @@
+refs的使用
+
+    在vue中不提倡dom操作,但有些特殊情况使用vue无法完成
+的功能,必须借助dom操作,也可以采取ref属性来将元素添加到vm实例的$refs的使用中
+
+<h3 ref='myh3></h3>
+在vue实例中可以直接通过$refs来使用myh3元素
+
+vm.$refs.myh3
+
+如果在vm对象的methods中有一个show方法
+
+vm.$refs.myh3.show()
+
+如果在vm对象的data中有一个msg数据
+
+vm.$refs.myh3.msg
+
+路由
+    后端路由:客户端向服务器的某个URL发送请求,服务器会对客户端进行相应的响应,
+    这一条匹配规则会成为路由,也是所谓的后端路由,特点是  有客户端向服务器发送请求
+
+    前端路由:不存在与后端进行交互,不会发送请求,实现页面跳转(组件的切换),针对单页面 
+    应用程序,
+
+    使用方式:
+    1.引入vue-router.js文件
+        var login = {
+            template:'<h1>登陆组件</h1>'
+        }
+        var register = {
+            template:'<h1>注册组件</h1>'
+        }
+        配置路由匹配规则时,component属性必须是一个组件对象,而非字符串,需要提前创建好组件对象
+        步骤:1.在vue.js导入vue-router.js文件创建VueRouter对象
+        var routerObj = new VueRouter({
+            routers:[
+                {path:'/login',component:login}
+                {path:'/register',component:register}
+            ]
+        })
+
+
+         var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            component:{
+                login,
+                register,
+            }
+            router:routerObj,
+        })
+    <div id="app">
+        <a href="#/login">登陆</a>
+        <a href="#/register">注册</a>
+        <router-view></router-view> 
+    </div>
+
+    为方便,可以配置a标签,点击跳转
+    配置好以上步骤,请求上面的页面就会在router-view区域显示
+
+    router-link渲染a标签
+
+    作用:为了避免每次写a标签都加#在前面,所以在VueRouter提供了一个router-link
+    的组件,辅助a标签渲染
+    可以通过to设置路由跳转,省略#
+    可以通过tag来指定标签,都是有效果的
+
+通过redirect来将根路径重定向到某个路径
+
+    在routers路由匹配规则中定义
+    var routerObj = new VueRouter({
+            // routers表示路由的匹配规则
+            routes: [
+                // path 监听路由地址
+                // component 表示如果前一个参数匹配到的 path
+                // 展示属性对应的组件
+                {
+                    path: '/',
+                    redirect: '/login'
+                },
+                {
+                    path: '/login',
+                    component: login
+                },
+                {
+                    path: '/register',
+                    component: register
+                }
+            ]
+        })
+
+
+    设置当前选中路由链接高亮
+        当router-link被点击的时候会有一个默认的类样式:
+        router-link-active,可以给该类名添加一些样式
+        实现选中的元素高亮
+
+        可以自定义类名,在routers同级中设置
+         linkAcitiveClass: 'myActive'属性
+
+
+    给路由切换加动画
+        原理和单元素动画一样,在<router-view></router-view>组件外包裹translation
+        标签添加动画
+
+    路由传参
+        这里路由传参与http中get和post传参意义不同,前端路由传参,不会发送http请求
+        仅仅只是为了切换携带参数
+
+        1.通过query传参,不需要修改路由匹配规则,在做跳转时后面加?传参即可,同get和post一样
+
+            当跳转到页面之后,用$route获取路由信息,属于全局属性
+            其中 fullpath表示完整路径
+            path表示路径
+            query表示query字段的参数
+
+        2.通过params传参,类似于后端的RestfullAPI设计
+            需要匹配路由规则
+
+
+watch属性
+    watch可以监视vue中data数据的改变,同时也可以监视路由的改变
+
+    监视data:
+        data:{
+            msg:'数据'
+        }
+        watch:function(newVal,oldVal){
+            //当data改变时会调用该函数
+        }
+
+    监视路由
+        watch:{
+            '$routh.path':function(newVal,oldVal){
+                //当path改变的时候调用该函数
+            }
+        }
+
+         watch:{
+            '$routh':function(to,from){
+                to.path()
+                //当path改变的时候调用该函数
+            }
+        }
+
+computed属性
+    1.computed中声明的都是函数,但是使用时就把它当成变量属性去使用即可,
+        而且在computed中声明的数据可data中有冲突的,不能同时声明透明的数据
+
+    2.computed属性时只读的,不人为修稿,只有当computed内部引用的data数据变化时会自动修改
+
+    3.computed属性默认缓存
+            

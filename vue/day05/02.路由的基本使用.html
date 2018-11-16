@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue-2.4.0.js"></script>
+    <script src="./lib/vue-router-3.0.1.js"></script>
+    <style>
+        .router-link-active,
+        .myActive {
+            color: #ff3040;
+            font-size: 20px;
+            font-weight: 700;
+            background-color: purple;
+        }
+
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(140px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <a href="#/login">登陆</a>
+        <a href="#/register">注册</a> -->
+        <router-link to='/login'>登陆</router-link>
+        <router-link to='/register'>注册</router-link>
+        <!-- vue-router提供的元素,用来做占位符的,将路由匹配到的内容,展示到里面 -->
+        <transition mode='out-in'>
+            <router-view></router-view>
+        </transition>
+    </div>
+    <script>
+        var login = {
+            template: '<h1>登陆组件</h1>'
+        }
+        var register = {
+            template: '<h1>注册组件</h1>'
+        }
+        var routerObj = new VueRouter({
+            // routers表示路由的匹配规则
+            routes: [
+                // path 监听路由地址
+                // component 表示如果前一个参数匹配到的 path
+                // 展示属性对应的组件
+                {
+                    path: '/',
+                    redirect: '/login'
+                },
+                {
+                    path: '/login',
+                    component: login
+                },
+                {
+                    path: '/register',
+                    component: register
+                }
+            ],
+            linkAcitiveClass: 'myActive'
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            //将routerObj注册到vm对象实力上,监听url变化,显示对应的组件
+            router: routerObj,
+        })
+    </script>
+</body>
+
+</html>
