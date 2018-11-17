@@ -27,9 +27,10 @@ app.set('views', './views')
 app.use('/lib', express.static('./lib'))
 app.use('/node_modules', express.static('./node_modules'))
 app.get('/', (req, res) => {
-     res.render('./02.列表案例.ejs', {})
+    res.render('./02.列表案例.ejs', {})
 })
 
+//获取数据渲染到页面
 app.get('/get', (req, res) => {
     const seleltSql = 'select * from users'
     conn.query(seleltSql, (err, result) => {
@@ -39,15 +40,52 @@ app.get('/get', (req, res) => {
         })
         res.send({
             status: 200,
-           msg: '获取数据成功',
-           data:result
+            msg: '获取数据成功',
+            data: result
         })
         console.log(result);
 
     })
 })
 
+app.post('/get', (req, res) => {
+    const data = req.body
+    // console.log(data);
+
+    const seleltSql = 'insert into users set ?'
+    conn.query(seleltSql, data, (err, result) => {
+        if (err) return res.send({
+            status: 500,
+            msg: '插入数据失败'
+        })
+        res.send({
+            status: 200,
+            msg: '插入数据成功',
+            data: result
+        })
+        // console.log(result);
+
+    })
+})
+
+app.get('/del/:id', (req, res) => {
+    const id = req.params.id
+    console.log(id);
+
+    const DelSql = 'delete from users where id = ?'
+    conn.query(DelSql, id, (err, result) => {
+        if (err) return res.send({
+            status: 500,
+            msg: '删除数据失败'
+        })
+        res.send({
+            status: 200,
+            msg: '删除数据成功',
+            data: result
+        })
+        // console.log(result);
+    })
+})
 app.listen(3003, () => {
     console.log('http://127.0.0.1:3003');
 })
-     
