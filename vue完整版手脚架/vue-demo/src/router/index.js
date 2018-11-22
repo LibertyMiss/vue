@@ -5,11 +5,15 @@ import homeComponent from '../pages/home/'
 import memberComponent from '../pages/member/'
 import shopCarConponent from '../pages/shopCar/'
 import searchComponent from '../pages/search/'
+import newListComponent from '../pages/newList/'
+import newsInfoComponent from '../pages/newsInfo/'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {path:'/',redirect:'/home'},
+  routes: [{
+      path: '/',
+      redirect: '/home'
+    },
     {
       path: '/home',
       component: homeComponent
@@ -26,6 +30,14 @@ export default new Router({
     {
       path: '/search',
       component: searchComponent
+    },
+    {
+      path: '/home/newList',
+      component: newListComponent
+    },
+    {
+      path: '/home/newsInfo/:id',
+      component: newsInfoComponent
     }
   ],
   linkActiveClass: "mui-active",
