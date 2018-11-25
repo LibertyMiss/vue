@@ -1,13 +1,14 @@
 <template>
     <div id="homeContainer">
         <!-- 轮播图 -->
-        <mt-swipe :auto="4000" class='swipe'>
+        <!-- <mt-swipe :auto="4000" class='swipe'>
             <mt-swipe-item v-for="(item,index) in swipeList" :key='index'>
                <a :href="item.url">
                     <img :src="item.img"/>
                </a>
             </mt-swipe-item>
-        </mt-swipe>
+        </mt-swipe> -->
+        <swipe :swipeList="swipeList"></swipe>
         <!-- 九宫格 -->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
                 <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
@@ -17,16 +18,16 @@
                     </router-link>
                 </li>
                 <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <a>
+                    <router-link to='/home/photoList'>
                         <img src="../../images/menu2.png" alt="">
                         <div class="mui-media-body">图片分享</div>
-                    </a>
+                   </router-link>
                 </li>
                 <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                    <a>
+                    <router-link to='/home/goodsList'>
                         <img src="../../images/menu3.png" alt="">
                         <div class="mui-media-body">商品购买</div>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
                     <a>
@@ -50,6 +51,8 @@
     </div>
 </template>
 <script>
+import {Toast} from 'mint-ui'
+import swipe from "../../components/swiper/"
 export default {
   data() {
     return {
@@ -64,18 +67,23 @@ export default {
       this.$http.get("api/getlunbo").then(result => {
         if (result.body.status == 0) {
           this.swipeList = result.body.message;
-          console.log(this.swipeList);
+          // console.log(this.swipeList);
+        }else {
+           Toast("获取数据失败!请重试!");
         }
       });
     }
+  },
+  components:{
+    swipe,
   }
 };
 </script>
 <style lang='less'>
 #homeContainer {
-  .swipe{
-    height: 200px;
-  }
+  // .swipe{
+  //   height: 200px;
+  // }
   .mint-swipe-item {
     &:nth-child(1) {
       background-color: skyblue;

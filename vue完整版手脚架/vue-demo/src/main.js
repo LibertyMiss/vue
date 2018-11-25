@@ -18,6 +18,9 @@ Vue.use(VueResource)
 
 //配置vue-resourse的根域名
 Vue.http.options.root = 'http://www.lovegf.cn:8899/'
+
+//设置post表单数据格式
+Vue.http.options.emulateJSON = true;
 // 按需导入需要的mint-ui组件
 import {
   Header,
@@ -41,6 +44,16 @@ import './lib/mui/css/icons-extra.css'
 Vue.filter('dataFormat', function (dateStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
   //直接调用表示获取当前时间
   return moment(dateStr).format(pattern)
+})
+//安装缩略图插件
+import VuePreview from 'vue2-preview'
+Vue.use(VuePreview)
+
+// 导入懒加载插件
+import VueLazyLoad from 'vue-lazyload'
+Vue.use(VueLazyLoad, {
+  error: './static/error.png',
+  loading: './static/loading.png'
 })
 /* eslint-disable no-new */
 new Vue({

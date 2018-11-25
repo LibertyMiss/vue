@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script>
+<script src="./snow.js">
 </script>
 
 <style lang='less'>
