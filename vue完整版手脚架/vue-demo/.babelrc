@@ -16,5 +16,6 @@
     "test": {
       "presets": ["env", "stage-2"]
     }
-  }
+  },
+  "ignore":["./src/lib/mui/js/*.js"]
 }
